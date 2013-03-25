@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 
 Project("{D8C106FA-86BD-C6A5-289C-4F76630B67CE}") = "SiegeDefenseCode", "Assembly-CSharp-firstpass.csproj", "{646AF5DD-A139-506A-7B4C-8FE0C6D07B4B}"
 EndProject
+Project("{D8C106FA-86BD-C6A5-289C-4F76630B67CE}") = "SiegeDefenseCode", "Assembly-CSharp.csproj", "{A41A2D2C-F86C-9360-70EE-E458DFE76238}"
+EndProject
 Project("{D8C106FA-86BD-C6A5-289C-4F76630B67CE}") = "SiegeDefenseCode", "Assembly-UnityScript-firstpass.unityproj", "{3EA88717-17D6-A569-509A-934C49355292}"
 EndProject
 Project("{D8C106FA-86BD-C6A5-289C-4F76630B67CE}") = "SiegeDefenseCode", "Assembly-UnityScript.unityproj", "{ED6DED4F-A86A-8853-4FE4-843BCB8BC4EB}"
@@ -17,6 +19,10 @@ Global
 		{646AF5DD-A139-506A-7B4C-8FE0C6D07B4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{646AF5DD-A139-506A-7B4C-8FE0C6D07B4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{646AF5DD-A139-506A-7B4C-8FE0C6D07B4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A41A2D2C-F86C-9360-70EE-E458DFE76238}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A41A2D2C-F86C-9360-70EE-E458DFE76238}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A41A2D2C-F86C-9360-70EE-E458DFE76238}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A41A2D2C-F86C-9360-70EE-E458DFE76238}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3EA88717-17D6-A569-509A-934C49355292}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3EA88717-17D6-A569-509A-934C49355292}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EA88717-17D6-A569-509A-934C49355292}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -29,7 +35,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
+			GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
@@ -47,4 +53,5 @@ Global
 		$3.inheritsScope = text/plain
 		$3.scope = text/plain
 	EndGlobalSection
+
 EndGlobal
