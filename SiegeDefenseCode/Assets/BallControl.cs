@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class CannonBall : MonoBehaviour {
+public class BallControl : MonoBehaviour {
 	float shotAngle;
 	float shotPower;
 	// Use this for initialization
