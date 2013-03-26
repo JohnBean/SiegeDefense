@@ -42,6 +42,8 @@ public class GameEngine : MonoBehaviour {
 			}
 		}
 		else if(state == gameState.attack){
+			//GameObject.Find("Cannon").rigidbody.position+=Vector3(0,0,0);//.rigidbody.AddTorque(Vector3(0,10,0));
+     		//.RotateAround(Vector3(-42,4.3,0),10);
 			Time.timeScale = 1.0F;
 			if(Input.GetMouseButtonDown(0)||Input.GetKeyDown("space")||Input.GetMouseButtonDown(2)){
 				round++;
