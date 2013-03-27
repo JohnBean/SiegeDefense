@@ -11,6 +11,7 @@ public class GameEngine : MonoBehaviour {
 	int maxRounds;
 	public float shotAngle;
 	public float shotPower;
+	float shotTime;
 	// Use this for initialization
 	void Start () {
 		state=gameState.splash;
@@ -56,6 +57,7 @@ public class GameEngine : MonoBehaviour {
 				//Rigidbody ballRigidbody = ball.rigidbody;//transform.rigidbody;
 				RB.position=new Vector3(-42F+(Mathf.Sin(shotAngle)*2.5F),4.5F+(Mathf.Cos(shotAngle)*2.5F),0);
 				RB.AddForce(new Vector3(Mathf.Sin(shotAngle)*shotPower,Mathf.Cos(shotAngle)*shotPower,0));
+				shotTime=Time.time;
 				//BallControl cannonBall = ball.GetComponent<BallControl>();//GetComponent<CannonBall>();
 				//MyCam myCam = target.GetComponent<MyCam>();
         		//otherScript.DoSomething(10F);
@@ -66,11 +68,17 @@ public class GameEngine : MonoBehaviour {
 
      		//.RotateAround(Vector3(-42,4.3,0),10);
 			Time.timeScale = 1.0F;
-			if(Input.GetMouseButtonDown(0)||Input.GetKeyDown("space")||Input.GetMouseButtonDown(2)){
+			if(Time.time > shotTime+Time.deltaTime*5 && RB.velocity.magnitude<1){
+				round++;
+	 			state=gameState.build;
+				RB.position=new Vector3(-42F,4.5F,0);
+				RB.velocity = new Vector3(0,0,0);//zero;
+			}
+			/*if(Input.GetMouseButtonDown(0)||Input.GetKeyDown("space")||Input.GetMouseButtonDown(2)){
 				round++;
 	 			state=gameState.build;
 				
-	 		}	
+	 		}*/	
 		}
 		else if(state ==gameState.win){
 			Time.timeScale = 0.0F;
