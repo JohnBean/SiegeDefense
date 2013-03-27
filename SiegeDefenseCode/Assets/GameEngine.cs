@@ -12,6 +12,7 @@ public class GameEngine : MonoBehaviour {
 	public float shotAngle;
 	public float shotPower;
 	float shotTime;
+	float shotWait;
 	// Use this for initialization
 	void Start () {
 		state=gameState.splash;
@@ -19,6 +20,7 @@ public class GameEngine : MonoBehaviour {
 		maxRounds =7;
 		shotAngle= 0;
 		shotPower= 0;
+		shotWait = 0;//used to make sure the cannonball has been stationary for long enough before advancing
 		cannonRotation=GameObject.Find("Cannon").transform.rotation;
 	}
 	
@@ -52,7 +54,7 @@ public class GameEngine : MonoBehaviour {
 				//when we are ready to change to attack state we set the cannon up for the new round
 				//var cannonBall = GetComponent<CannonBall.cs>();
 				shotAngle=45F;
-				shotPower=1250F;
+				shotPower=1250F*RB.mass;
 				//GameObject ball = GameObject.Find("cannonBall");//.rigidbody;//.AddForce(new Vector3(Mathf.Sin(shotAngle)*shotPower,Mathf.Cos(shotAngle)*shotPower,0));//.GetComponent<CannonBall>();//.doSomething(10F);
 				//Rigidbody ballRigidbody = ball.rigidbody;//transform.rigidbody;
 				RB.position=new Vector3(-42F+(Mathf.Sin(shotAngle)*2.5F),4.5F+(Mathf.Cos(shotAngle)*2.5F),0);
@@ -69,10 +71,17 @@ public class GameEngine : MonoBehaviour {
      		//.RotateAround(Vector3(-42,4.3,0),10);
 			Time.timeScale = 1.0F;
 			if(Time.time > shotTime+Time.deltaTime*5 && RB.velocity.magnitude<1){
-				round++;
-	 			state=gameState.build;
-				RB.position=new Vector3(-42F,4.5F,0);
-				RB.velocity = new Vector3(0,0,0);//zero;
+				shotWait=shotWait+Time.deltaTime;
+				if(shotWait>5){
+					round++;
+	 			
+					RB.position=new Vector3(-42F,4.5F,0);
+					RB.velocity = new Vector3(0,0,0);//zero;
+					state=gameState.build;
+				}
+			}
+			else{
+				shotWait = 0;
 			}
 			/*if(Input.GetMouseButtonDown(0)||Input.GetKeyDown("space")||Input.GetMouseButtonDown(2)){
 				round++;
