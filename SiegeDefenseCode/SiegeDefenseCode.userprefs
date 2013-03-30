@@ -1,13 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\GameEngine.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\royalScript.cs">
     <Files>
-      <File FileName="..\..\Locomorph\DiseaseDestroyer\Assets\Disease Destroyer Assets\Scripts\playerMovement.js" Line="145" Column="10" />
+      <File FileName="Assets\royalScript.cs" Line="15" Column="2" />
+      <File FileName="..\..\Locomorph\DiseaseDestroyer\Assets\Disease Destroyer Assets\Scripts\playerMovement.js" Line="150" Column="1" />
       <File FileName="..\..\Locomorph\DiseaseDestroyer\Assets\Disease Destroyer Assets\Scripts\HUDHandler.js" Line="210" Column="19" />
       <File FileName="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-Basic.shader" Line="1" Column="1" />
       <File FileName="Assets\GameEngine.cs" Line="100" Column="8" />
-      <File FileName="Assets\BallControl.cs" Line="21" Column="3" />
-      <File FileName="Assets\royalScript.cs" Line="11" Column="36" />
+      <File FileName="Assets\BallControl.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
