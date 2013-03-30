@@ -4,6 +4,7 @@ using System.Collections;
 public class BallControl : MonoBehaviour {
 	float shotAngle;
 	float shotPower;
+	enum gameState {splash, build, attack, win, lose};
 	// Use this for initialization
 	void Start () {
 		shotAngle=45.0F;
