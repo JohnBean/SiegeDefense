@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\BallControl.cs" />
+     <Compile Include="Assets\BlockGUIScript.cs" />
      <Compile Include="Assets\BlockScript.cs" />
      <Compile Include="Assets\GameEngine.cs" />
      <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />
