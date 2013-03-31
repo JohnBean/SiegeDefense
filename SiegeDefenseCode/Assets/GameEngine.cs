@@ -36,6 +36,8 @@ public class GameEngine : MonoBehaviour {
 		else if(state == gameState.build){
 			//resets the cannon rotation when in build mode
 			GameObject.Find("Cannon").transform.rotation=cannonRotation;
+			RB.position=new Vector3(-42F,4.5F,0);
+			RB.velocity = new Vector3(0,0,0);//zero;
 			Trans.rotation=cannonRotation;
 			Time.timeScale = 0.0F;
 			if(Input.GetMouseButtonDown(0)){
@@ -55,6 +57,9 @@ public class GameEngine : MonoBehaviour {
 				state=gameState.attack;//this is just to advance the gamestate until we have the build functionality down
 				//when we are ready to change to attack state we set the cannon up for the new round
 				//var cannonBall = GetComponent<CannonBall.cs>();
+				Trans.position =new Vector3(-42F,4.5F,0); 
+				RB.position=new Vector3(-42F,4.5F,0);
+				RB.velocity = new Vector3(0,0,0);//zero;
 				int randomNumber =  Random.Range(0, 2);
 				switch (randomNumber){
    				 	case 0: //low
@@ -63,11 +68,11 @@ public class GameEngine : MonoBehaviour {
         				break;
     				case 1:
 						shotAngle = 35 + Random.Range (0,10);
-						shotPower = (1300 +  Random.Range(0,300)) *RB.mass;
+						shotPower = (1100 +  Random.Range(0,300)) *RB.mass;
         				break;
 					case 2:
 						shotAngle = 55 + Random.Range(0,10);
-						shotPower = (1300 +  Random.Range(0,300)) *RB.mass;
+						shotPower = (900 +  Random.Range(0,300)) *RB.mass;
         				break;
 				}
 				shotAngle = 90F - shotAngle;
@@ -93,7 +98,7 @@ public class GameEngine : MonoBehaviour {
 				shotWait=shotWait+Time.deltaTime;
 				if(shotWait>5){
 					round++;
-	 			
+	 				Trans.position =new Vector3(-42F,4.5F,0); 
 					RB.position=new Vector3(-42F,4.5F,0);
 					RB.velocity = new Vector3(0,0,0);//zero;
 					if(state != gameState.lose){
@@ -104,7 +109,7 @@ public class GameEngine : MonoBehaviour {
 			else{
 				if(Trans.position.x > 60){
 					round++;
-	 			
+	 				Trans.position =new Vector3(-42F,4.5F,0); 
 					RB.position=new Vector3(-42F,4.5F,0);
 					RB.velocity = new Vector3(0,0,0);//zero;
 					state = gameState.build;	
