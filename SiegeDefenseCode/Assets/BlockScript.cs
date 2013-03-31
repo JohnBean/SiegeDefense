@@ -4,21 +4,35 @@ using System.Collections;
 public class BlockScript : MonoBehaviour {
 	Vector3 screenPoint;
 	Vector3 offset;
-	public int price;
+	public int cost;
 	bool destroy;
 	bool hasBeenHit;
 	bool isAttackState;
+	bool mouseDown = false;
+	bool isStable;	//Stability will be based on phase.  Build phase is stable, attack is unstable.
+	
 	// Use this for initialization
 	void Start () {
 		hasBeenHit = false;
 		destroy = false;
 		isAttackState = false;
+		isStable = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		//BlockFunction ();
+		
 		if(Input.GetKeyDown("space"))
+		{
+			Debug.Log ("Space pressed.");
+			isStable = false;
+		}
+		else if(Input.GetKeyDown ("v"))
+		{
+			isStable = true;
+		}
+		/*if(Input.GetKeyDown("space"))
 		{
 			Debug.Log ("Space pressed.");
 			destroy = true;
@@ -27,8 +41,8 @@ public class BlockScript : MonoBehaviour {
 		{
 			Debug.Log ("Z pressed.");
 			destroy = false;
-		}
-		if(Input.GetKeyDown ("x"))
+		}*/
+		/*if(Input.GetKeyDown ("x"))
 		{
 			isAttackState = true;
 			transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
@@ -38,13 +52,37 @@ public class BlockScript : MonoBehaviour {
 		if(Input.GetKeyDown ("c"))
 		{
 			isAttackState = false;
+		}*/
+		
+		/*if(!mouseDown)
+		{
+			transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+			transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX|RigidbodyConstraints.FreezeRotationY|RigidbodyConstraints.FreezePositionZ;
+
+		}
+		mouseDown = false;
+		*/
+		
+		transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+		if(isStable)	//No rotations.
+		{
+			transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX|RigidbodyConstraints.FreezeRotationY|RigidbodyConstraints.FreezePositionZ;
+		}
+		else //Rotation along Z-axis.
+		{
+			
+			transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX|RigidbodyConstraints.FreezeRotationY|RigidbodyConstraints.FreezePositionZ;
+		
 		}
 	}
 	
 	//First mouse button press down.
 	void OnMouseDown()
 	{
-		Debug.Log ("DOWN!");
+		//Debug.Log ("DOWN!");
+		mouseDown = true;
+		transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX|RigidbodyConstraints.FreezeRotationY|
+			RigidbodyConstraints.FreezeRotationZ|RigidbodyConstraints.FreezePositionZ;
 		if(destroy)
 		{
 			if(!hasBeenHit)
@@ -58,7 +96,7 @@ public class BlockScript : MonoBehaviour {
 				foreach(Transform child in transform)
 				{
 					child.gameObject.AddComponent ("Rigidbody");
-					child.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX|RigidbodyConstraints.FreezeRotationY|RigidbodyConstraints.FreezePositionZ;
+					child.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX|RigidbodyConstraints.FreezeRotationY|RigidbodyConstraints.FreezeRotationZ|RigidbodyConstraints.FreezePositionZ;
 					
 				}
 				
@@ -67,14 +105,7 @@ public class BlockScript : MonoBehaviour {
 		}
 		else if(isAttackState)
 		{
-			/*foreach(Transform child in transform)
-				{
-					child.gameObject.AddComponent ("Rigidbody");
-					child.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ|RigidbodyConstraints.FreezePositionZ;
-					
-				}*/
-			
-					}
+		}
 		else
 		{
 			screenPoint = Camera.main.WorldToScreenPoint (transform.position);
@@ -85,6 +116,7 @@ public class BlockScript : MonoBehaviour {
 	//While object is being dragged.
 	void OnMouseDrag()
 	{	
+		mouseDown = true;
 		if(!destroy)
 		{
 			Vector3 currentScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
@@ -105,14 +137,12 @@ public class BlockScript : MonoBehaviour {
 		if(Input.GetKeyDown (KeyCode.RightArrow))
 		{
 			Debug.Log ("ROTATING RIGHT!");
-			float rotation = transform.rotation.z;
 			
 			transform.Rotate (new Vector3(0,0,-90));
 			//transform.gameObject.GetComponent<Rigidbody>().AddTorque (new Vector3(0,0,90));
 		}
 		else if(Input.GetKeyDown (KeyCode.LeftArrow))
 		{
-			float rotation = transform.rotation.z;
 			
 			transform.Rotate (new Vector3(0,0,90));
 			//transform.gameObject.GetComponent<Rigidbody>().AddTorque(new Vector3(0,0,-90));
@@ -121,6 +151,6 @@ public class BlockScript : MonoBehaviour {
 	
 	void destroyBlock()
 	{
-		
+		Destroy (transform);
 	}
 }
