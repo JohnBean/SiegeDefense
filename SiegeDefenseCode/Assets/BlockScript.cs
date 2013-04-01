@@ -9,10 +9,11 @@ public class BlockScript : MonoBehaviour {
 	bool destroy;
 	bool isCollapsing;
 	bool hasBeenHit;
-	bool isAttackState;
-	bool mouseDown = false;
-	bool isStable;	//Stability will be based on phase.  Build phase is stable, attack is unstable.
 	bool rigidBodiesAdded;
+	
+	bool mouseDown = false;
+	bool constraintsFixed;	//Stability will be based on phase.  Build phase is stable, attack is unstable.
+	
 	public int waitTime;
 	int waitIndex;
 	
@@ -20,11 +21,11 @@ public class BlockScript : MonoBehaviour {
 	void Start () {
 		hasBeenHit = false;
 		destroy = false;
-		isAttackState = false;
-		isStable = true;
+		constraintsFixed = false;
 		isCollapsing = false;
 		rigidBodiesAdded= false;
 		waitIndex = 0;
+		transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX|RigidbodyConstraints.FreezeRotationY|RigidbodyConstraints.FreezeRotationZ|RigidbodyConstraints.FreezePositionX|RigidbodyConstraints.FreezePositionY|RigidbodyConstraints.FreezePositionZ;
 	}
 	
 	// Update is called once per frame
@@ -38,7 +39,7 @@ public class BlockScript : MonoBehaviour {
 		}
 		else if(Input.GetKeyDown ("v"))
 		{
-			isStable = true;
+			//isStable = true;
 		}
 		
 		if(isCollapsing)
@@ -61,39 +62,10 @@ public class BlockScript : MonoBehaviour {
 				addRigidBodies ();
 			}
 		}
-		/*if(Input.GetKeyDown("space"))
-		{
-			Debug.Log ("Space pressed.");
-			destroy = true;
-		}
-		if(Input.GetKeyDown ("z"))
-		{
-			Debug.Log ("Z pressed.");
-			destroy = false;
-		}*/
-		/*if(Input.GetKeyDown ("x"))
-		{
-			isAttackState = true;
-			transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-			transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX|RigidbodyConstraints.FreezeRotationY|RigidbodyConstraints.FreezePositionZ;
-
-		}
-		if(Input.GetKeyDown ("c"))
-		{
-			isAttackState = false;
-		}*/
 		
-		/*if(!mouseDown)
-		{
-			transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-			transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX|RigidbodyConstraints.FreezeRotationY|RigidbodyConstraints.FreezePositionZ;
-
-		}
-		mouseDown = false;
-		*/
 		
-		transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-		if(isStable)	//No rotations.
+		//transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+		/*if(isStable)	//No rotations.
 		{
 			transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX|RigidbodyConstraints.FreezeRotationY|RigidbodyConstraints.FreezePositionZ;
 		}
@@ -101,8 +73,8 @@ public class BlockScript : MonoBehaviour {
 		{
 			
 			transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX|RigidbodyConstraints.FreezeRotationY|RigidbodyConstraints.FreezePositionZ;
-		
 		}
+		*/
 	}
 	
 	//First mouse button press down.
@@ -132,14 +104,24 @@ public class BlockScript : MonoBehaviour {
 				//All children now have rigidbodies added.
 			}
 		}
-		else if(isAttackState)
-		{
-		}
+
 		else
 		{
 			screenPoint = Camera.main.WorldToScreenPoint (transform.position);
 			//Debug.Log ("ScreenPoint");
 			offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
+		}
+	}
+	
+	void OnMouseUp()
+	{
+		Debug.Log ("MOUSE UP!");
+		if(!constraintsFixed)
+		{
+			transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+			transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX|RigidbodyConstraints.FreezeRotationY|RigidbodyConstraints.FreezePositionZ;
+			
+			constraintsFixed = true;
 		}
 	}
 	//While object is being dragged.
