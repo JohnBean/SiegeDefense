@@ -45,8 +45,20 @@ public class BlockScript : MonoBehaviour {
 		{
 			if(rigidBodiesAdded)
 			{
-				
-				destroyBlock();
+				if(waitIndex > waitTime)
+				{
+					destroyBlock ();
+					waitIndex = 0;
+				}
+				else
+				{
+					waitIndex++;
+				}
+				//destroyBlock();
+			}
+			else
+			{
+				addRigidBodies ();
 			}
 		}
 		/*if(Input.GetKeyDown("space"))
