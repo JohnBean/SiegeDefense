@@ -4,7 +4,9 @@ using System.Collections;
 public class GameEngine : MonoBehaviour {
 	public enum gameState {splash, build, attack, win, lose};
 	public gameState state;//states    0-Opening splash screen.    1-Build Mode    2-Attack mode    3-Win state    4-Lose state
-	Texture splashScreen;
+	public Texture2D splashScreen;
+	public Texture2D winScreen;
+	public Texture2D loseScreen;
 	public Rigidbody RB;
 	public Transform Trans;
 	Quaternion cannonRotation;
@@ -134,7 +136,8 @@ public class GameEngine : MonoBehaviour {
 	}
 	void OnGUI(){
 		if(state == gameState.splash){
-			GUI.Label (new Rect (60, 60, 100, 20), "Opening spash screen");
+			GUI.Label (new Rect(60, 60, 100, 20), "Opening spash screen");
+			GUI.DrawTexture(new Rect(Screen.width/4,0,Screen.width/2,Screen.height),splashScreen);
 		}
 		else if(state == gameState.build){
 			GUI.Label (new Rect (60, 60, 100, 20), "Build state " + round);
@@ -145,16 +148,14 @@ public class GameEngine : MonoBehaviour {
 			GUI.Label (new Rect (90, 90, 100, 20),Mathf.Sin(GameObject.Find("Cannon").transform.rotation.z) + " ");
 		}
 		else if(state == gameState.win){
-			GUI.Label (new Rect (60, 60, 100, 200), "You made it to the end of the rounds, you won!");
+			GUI.DrawTexture(new Rect(Screen.width/4,0,Screen.width/2,Screen.height),winScreen);
 		}
 		else if(state == gameState.lose){
-			GUI.Label (new Rect (60, 60, 100, 200), "Game over, you suck!");
+			GUI.DrawTexture(new Rect(Screen.width/3,Screen.height/4,Screen.width/3,Screen.height/2),loseScreen);
 		}
 	}
 	void OnCollisionEnter(Collision target){
-		print ("something was hit");
       	if(target.gameObject.tag == "Finish"){
-			print ("the kind was hit!");
 			state = gameState.lose;	
 		}
 	}
