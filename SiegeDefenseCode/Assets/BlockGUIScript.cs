@@ -32,10 +32,25 @@ public class BlockGUIScript : MonoBehaviour {
 		GUI.Box (new Rect(optionBoxStartX, optionBoxStartY, optionBoxLength,optionBoxWidth), "Blocks");
 		GUI.Label (new Rect(optionBoxStartX, optionBoxStartY + optionBoxWidth+10, 70,20), "Count: " + cost);
 		
-		if(GUI.Button(new Rect(buttonStartX, buttonStartY,buttonLength,buttonWidth), "Line Piece")) {
+		
+		if(GUI.Button(new Rect(buttonStartX, buttonStartY,buttonLength,buttonWidth), "Single Block")) {
+		//string path = AssetDatabase.GetAssetPath(TBlock);
+			
+			if(cost - 1 >= 0)
+			{
+				GameObject.Instantiate (Resources.Load ("BlockTypes/SingleBlock"));
+				cost = cost - 1;
+			}
+			else
+			{
+			}
+		//Application.LoadLevel(1);
+		}
+		
+		if(GUI.Button(new Rect(buttonStartX+(buttonSpacing+buttonLength),buttonStartY, buttonLength, buttonWidth), "Line Piece")) {
 			//string path = AssetDatabase.GetAssetPath(TBlock);
 			
-			if(cost - 4 > 0)
+			if(cost - 4 >= 0)
 			{
 				GameObject.Instantiate (Resources.Load ("BlockTypes/LineBlock"));
 				cost = cost - 4;
@@ -46,9 +61,9 @@ public class BlockGUIScript : MonoBehaviour {
 			//Application.LoadLevel(1);
 		}
 		
-		if(GUI.Button(new Rect(buttonStartX+(buttonSpacing+buttonLength),buttonStartY, buttonLength, buttonWidth), "T Block")) {
+		if(GUI.Button(new Rect(buttonStartX+2*(buttonSpacing+buttonLength),buttonStartY, buttonLength, buttonWidth), "T Block")) {
 			
-			if(cost - 4 > 0)
+			if(cost - 4 >= 0)
 			{
 				GameObject.Instantiate (Resources.Load ("BlockTypes/TBlock"));
 				cost = cost-4;
@@ -58,9 +73,9 @@ public class BlockGUIScript : MonoBehaviour {
 			}
 		}
 		
-		if(GUI.Button(new Rect(buttonStartX+2*(buttonSpacing+buttonLength),buttonStartY, buttonLength, buttonWidth), "Big T Block")) {
+		if(GUI.Button(new Rect(buttonStartX+3*(buttonSpacing+buttonLength),buttonStartY, buttonLength, buttonWidth), "Big T Block")) {
 			
-			if(cost - 6 > 0)
+			if(cost - 6 >= 0)
 			{
 				GameObject.Instantiate (Resources.Load ("BlockTypes/RealDBlock"));
 				cost = cost-6;
@@ -69,8 +84,8 @@ public class BlockGUIScript : MonoBehaviour {
 			{
 			}
 		}
-		if(GUI.Button(new Rect(buttonStartX+3*(buttonSpacing+buttonLength),buttonStartY, buttonLength, buttonWidth), "D Block")) {
-			if(cost - 5 > 0)
+		if(GUI.Button(new Rect(buttonStartX+4*(buttonSpacing+buttonLength),buttonStartY, buttonLength, buttonWidth), "D Block")) {
+			if(cost - 5 >= 0)
 			{
 				GameObject.Instantiate (Resources.Load ("BlockTypes/DBlock"));
 				cost = cost-5;
@@ -79,8 +94,8 @@ public class BlockGUIScript : MonoBehaviour {
 			{
 			}
 		}
-		if(GUI.Button(new Rect(buttonStartX+4*(buttonSpacing+buttonLength),buttonStartY, buttonLength, buttonWidth), "Square")) {
-			if(cost - 4 >0)
+		if(GUI.Button(new Rect(buttonStartX+5*(buttonSpacing+buttonLength),buttonStartY, buttonLength, buttonWidth), "Square")) {
+			if(cost - 4 >=0)
 			{
 				GameObject.Instantiate (Resources.Load ("BlockTypes/SquareBlock"));
 				cost = cost-4;
@@ -91,7 +106,7 @@ public class BlockGUIScript : MonoBehaviour {
 		}
 	}
 	
-	void resetCost(int newCost)
+	void resetCost(int newCost)	//Call from game engine?
 	{
 		cost = newCost;
 	}
