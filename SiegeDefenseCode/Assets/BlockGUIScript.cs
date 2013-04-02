@@ -3,23 +3,36 @@ using System.Collections;
 
 public class BlockGUIScript : MonoBehaviour {
 	
-	public int optionBoxStartX;
-	public int optionBoxStartY;
-	public int optionBoxLength;
-	public int optionBoxWidth;
+	int optionBoxStartX;
+	int optionBoxStartY;
+	int optionBoxLength;
+	int optionBoxWidth;
 	
-	public int buttonStartX;
-	public int buttonStartY;
-	public int buttonLength;
-	public int buttonWidth;
+	int buttonStartX;
+	int buttonStartY;
+	int buttonLength;
+	int buttonWidth;
 	
-	public int buttonSpacing;
+	int buttonSpacing;
 	
 	public int maxCost;
 	int cost;
 	// Use this for initialization
 	void Start () {
 		cost = maxCost;
+		
+		
+		optionBoxStartX = 10;
+		optionBoxStartY = 10;
+		optionBoxLength = 550;
+		optionBoxWidth = 50;
+	
+		buttonStartX = 20;
+		buttonStartY = 40;
+		buttonLength = 90;
+		buttonWidth = 20;
+	
+		buttonSpacing = 20;
 	}
 	
 	// Update is called once per frame
@@ -38,7 +51,7 @@ public class BlockGUIScript : MonoBehaviour {
 			
 			if(cost - 1 >= 0)
 			{
-				GameObject.Instantiate (Resources.Load ("BlockTypes/SingleBlock"));
+				GameObject.Instantiate (Resources.Load ("BlockTypes/SingleBlock"), new Vector3(0,10,0), transform.rotation);
 				cost = cost - 1;
 			}
 			else

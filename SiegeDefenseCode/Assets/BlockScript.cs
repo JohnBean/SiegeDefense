@@ -4,14 +4,13 @@ using System.Collections;
 public class BlockScript : MonoBehaviour {
 	Vector3 screenPoint;
 	Vector3 offset;
-	public GameObject cBall;
+	public Transform cBall;
 	public int cost;
 	bool destroy;
 	bool isCollapsing;
 	bool hasBeenHit;
 	bool rigidBodiesAdded;
 	
-	bool mouseDown = false;
 	bool constraintsFixed;	//Stability will be based on phase.  Build phase is stable, attack is unstable.
 	
 	public int waitTime;
@@ -31,17 +30,7 @@ public class BlockScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//BlockFunction ();
-		
-		if(Input.GetKeyDown("space"))
-		{
-			Debug.Log ("Space pressed.");
-			isCollapsing = true;
-		}
-		else if(Input.GetKeyDown ("v"))
-		{
-			//isStable = true;
-		}
-		
+			
 		if(isCollapsing)
 		{
 			if(rigidBodiesAdded)
@@ -81,7 +70,6 @@ public class BlockScript : MonoBehaviour {
 	void OnMouseDown()
 	{
 		//Debug.Log ("DOWN!");
-		mouseDown = true;
 		transform.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX|RigidbodyConstraints.FreezeRotationY|
 			RigidbodyConstraints.FreezeRotationZ|RigidbodyConstraints.FreezePositionZ;
 		if(destroy)
@@ -127,7 +115,6 @@ public class BlockScript : MonoBehaviour {
 	//While object is being dragged.
 	void OnMouseDrag()
 	{	
-		mouseDown = true;
 		if(!destroy)
 		{
 			Vector3 currentScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
@@ -162,14 +149,17 @@ public class BlockScript : MonoBehaviour {
 	
 	void OnCollisionEnter(Collision collision)
 	{
+		Debug.Log ("What was that?");
 		if(collision.collider.tag=="Cannonball")
 		{
+			Debug.Log ("Was that a cannonball?");
 			if(!hasBeenHit)
 			{
 				hasBeenHit=true;
 			}
 			else
 			{
+				Debug.Log ("COLLAPSING!");
 				isCollapsing = true;
 				//destroyBlock ();
 			}
@@ -202,7 +192,7 @@ public class BlockScript : MonoBehaviour {
 	}
 	void destroyBlock()
 	{
-		Destroy (transform.gameObject);
+		//Destroy (transform.gameObject);
 	}
 
 }
