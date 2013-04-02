@@ -8,6 +8,7 @@ public class GameEngine : MonoBehaviour {
 	public Texture2D winScreen;
 	public Texture2D loseScreen;
 	public Rigidbody RB;
+	bool firstGame;
 	public Transform Trans;
 	Quaternion cannonRotation;
 	int round;
@@ -16,6 +17,8 @@ public class GameEngine : MonoBehaviour {
 	public float shotPower;
 	float shotTime;
 	float shotWait;
+	public AudioClip cannonSound;
+	public AudioClip winSound;
 	int optionBoxStartX;
 	int optionBoxStartY;
 	int optionBoxLength;
@@ -39,7 +42,7 @@ public class GameEngine : MonoBehaviour {
 		shotPower= 0;
 		shotWait = 0;//used to make sure the cannonball has been stationary for long enough before advancing
 		cannonRotation=GameObject.Find("Cannon").transform.rotation;
-
+		firstGame = true;
 		cost = maxCost;
 		optionBoxStartX = 10;
 		optionBoxStartY = 10;
@@ -55,6 +58,7 @@ public class GameEngine : MonoBehaviour {
 
 	}
 	void resetGame(){
+		firstGame=false;
 		cost=maxCost;
 		state=gameState.splash;
 		round = 1;
@@ -68,6 +72,8 @@ public class GameEngine : MonoBehaviour {
 		RB.velocity = new Vector3(0,0,0);//zero;
 		Trans.rotation=cannonRotation;
 		removeAllBlocks ();
+		shotAngle = 35 + Random.Range (0,10);
+		shotPower = (1200 +  Random.Range(0,300)) *RB.mass;
 	}
 	
 	void removeAllBlocks()
@@ -130,8 +136,12 @@ public class GameEngine : MonoBehaviour {
 				shotAngle = 90F - shotAngle;
 				RB.position=new Vector3(-42F+(Mathf.Sin(shotAngle*Mathf.Deg2Rad)*2.5F),4.5F+(Mathf.Cos(shotAngle*Mathf.Deg2Rad)*2.5F),0);
 				RB.AddForce(new Vector3(Mathf.Sin(shotAngle * Mathf.Deg2Rad)*shotPower,Mathf.Cos(shotAngle * Mathf.Deg2Rad)*shotPower,0));
+				if(round == 1 && !firstGame){
+					RB.AddForce(new Vector3(Mathf.Sin(shotAngle * Mathf.Deg2Rad)*shotPower/1.5F,Mathf.Cos(shotAngle * Mathf.Deg2Rad)*shotPower/2F,0));
+				}
 				shotTime=Time.time;
 				GameObject.Find("Cannon").transform.Rotate(new Vector3(0,0,90-shotAngle));//.position+=Vector3(0,0,0);//.rigidbody.AddTorque(Vector3(0,10,0));				
+				audio.PlayOneShot(cannonSound, 1F);
 			}
 		}
 		else if(state == gameState.attack){
@@ -150,7 +160,7 @@ public class GameEngine : MonoBehaviour {
 				}
 			}
 			else{
-				if(Trans.position.x > 60){
+				if(Trans.position.x > 60|| Trans.position.y < -100){
 					round++;
 	 				Trans.position =new Vector3(-42F,4.5F,0); 
 					RB.position=new Vector3(-42F,4.5F,0);
@@ -173,8 +183,9 @@ public class GameEngine : MonoBehaviour {
 				resetGame ();
 			}
 		}
-		if(round>maxRounds){
-			state=gameState.win;	
+		if(round>maxRounds  && state != gameState.win){
+			state=gameState.win;
+			audio.PlayOneShot(winSound, .5F);
 		}
 	}
 	void OnGUI(){

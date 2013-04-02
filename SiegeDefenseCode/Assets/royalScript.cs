@@ -18,7 +18,9 @@ public class royalScript : MonoBehaviour {
 		
       	if(target.gameObject.tag != "EditorOnly"){
 			GameObject.Find("Main Camera").GetComponent<GameEngine>().lose();
-			print ("something was hit in the kings script");
+			audio.PlayOneShot(pain, 1F);
+			audio.PlayOneShot(bone,1F);
+			audio.PlayOneShot(blood,1F);
 		}
 	}
 }
