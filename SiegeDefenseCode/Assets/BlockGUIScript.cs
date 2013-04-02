@@ -110,7 +110,10 @@ public class BlockGUIScript : MonoBehaviour {
 			{
 			}
 		}
-		
+		if(Input.GetKeyDown("space")){
+			GameObject.Find("Main Camera").GetComponent<GameEngine>().attack();
+			resetCost (25);
+		}
 		/*if(GUI.Button(new Rect(buttonStartX+5*(buttonSpacing+buttonLength),buttonStartY, buttonLength, buttonWidth), "D Block")) {
 			if(cost - 5 >= 0)
 			{

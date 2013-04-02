@@ -2,7 +2,9 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\GameEngine.cs">
     <Files>
-      <File FileName="Assets\GameEngine.cs" Line="166" Column="1" />
+      <File FileName="Assets\GameEngine.cs" Line="174" Column="3" />
+      <File FileName="Assets\BlockGUIScript.cs" Line="133" Column="3" />
+      <File FileName="Assets\royalScript.cs" Line="20" Column="69" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
