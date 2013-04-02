@@ -179,8 +179,12 @@ public class BlockScript : MonoBehaviour {
 			foreach(Transform child in transform)
 			{	
 				child.gameObject.AddComponent ("Rigidbody");
-				child.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX|RigidbodyConstraints.FreezeRotationY|RigidbodyConstraints.FreezeRotationZ|RigidbodyConstraints.FreezePositionZ;	
+				child.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX|RigidbodyConstraints.FreezeRotationY|RigidbodyConstraints.FreezePositionZ;	
+				child.gameObject.GetComponent<Rigidbody>().mass = 5f;
+				child.gameObject.GetComponent<Rigidbody>().drag = 0.99f;
+				child.gameObject.GetComponent<Rigidbody>().angularDrag = 0.92f;
 			}
+			Destroy(transform.gameObject.GetComponent<Rigidbody>());
 			rigidBodiesAdded = true;
 		}
 		/*for(int i = 0; i<1500; i++)

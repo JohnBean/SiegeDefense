@@ -67,7 +67,22 @@ public class GameEngine : MonoBehaviour {
 		RB.position=new Vector3(-42F,4.5F,0);
 		RB.velocity = new Vector3(0,0,0);//zero;
 		Trans.rotation=cannonRotation;
+		removeAllBlocks ();
 	}
+	
+	void removeAllBlocks()
+	{
+		GameObject[] allBlocks;
+		allBlocks = GameObject.FindGameObjectsWithTag("Block");
+		
+		foreach(GameObject block in allBlocks)
+		{
+			Destroy (block);
+		}
+			
+		
+	}
+	
 	void resetCost(int newCost)	//Call from game engine?
 	{
 		cost = newCost;

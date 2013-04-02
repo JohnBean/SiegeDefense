@@ -51,7 +51,7 @@ public class BlockGUIScript : MonoBehaviour {
 			
 			if(cost - 1 >= 0)
 			{
-				GameObject.Instantiate (Resources.Load ("BlockTypes/SingleBlock"), new Vector3(0,10,0), transform.rotation);
+				//GameObject.Instantiate (Resources.Load ("BlockTypes/SingleBlock"));
 				cost = cost - 1;
 			}
 			else
